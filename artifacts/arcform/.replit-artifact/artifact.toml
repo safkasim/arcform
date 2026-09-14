@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Arcform"
+description = "A premium, mobile-first AI fitness coaching platform that creates personalized multi-week training plans, supports coach chat, tracks completed workouts and RPE, adapts future sessions from performance, and summarizes progress for trainers and gym members."
+version = "1.0.0"
+id = "artifacts/arcform"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21201
+
+[services.development]
+run = "pnpm --filter @workspace/arcform run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/arcform", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/arcform/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21201"
+BASE_PATH = "/"

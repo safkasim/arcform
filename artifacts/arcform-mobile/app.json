@@ -1,0 +1,51 @@
+{
+  "expo": {
+    "name": "Arcform",
+    "slug": "arcform-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "arcform",
+    "userInterfaceStyle": "dark",
+    "ios": {
+      "supportsTablet": false,
+      "requireFullScreen": true,
+      "bundleIdentifier": "com.arcform.mobile",
+      "buildNumber": "1",
+      "deploymentTarget": "17.0",
+      "config": {
+        "usesNonExemptEncryption": false
+      }
+    },
+    "android": {},
+    "web": {
+      "favicon": "./assets/images/icon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow Arcform to record your working sets for form review.",
+          "microphonePermission": "Allow Arcform to include sound with your form recordings.",
+          "recordAudioAndroid": true
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/icon.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#000000"
+        }
+      ],
+      "expo-video",
+      "./plugins/with-ios-release-config"
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "platforms": ["apple"],
+  "apple": {
+    "modules": ["ArcformVisionModule"],
+    "podspecPath": "ios/ArcformVision.podspec"
+  }
+}

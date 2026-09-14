@@ -1,0 +1,15 @@
+Vision framework (the one to start with)
+
+VNDetectHumanBodyPoseRequest gives you 2D joint locations (19 points: nose, eyes, ears, neck, shoulders, elbows, wrists, hips, knees, ankles, root) with a confidence score for each, from a single video frame. It's been around since iOS 14 and runs fast enough for real time video.
+
+VNDetectHumanBodyPose3DRequest (iOS 17+) goes further and gives you actual 3D joint positions in meters relative to the camera, plus joint rotation data, from a normal monocular camera feed. It uses depth data to improve accuracy if the device has it, but it doesn't require a depth camera, a regular iPhone camera is enough. This is the one you want for something like a squat depth check or a knee angle measurement, since 2D points get distorted by camera angle and 3D points don't.
+
+Implementation flow looks like this:
+
+Capture video with AVFoundation (AVCaptureSession + a video data output delegate), or read frames from a recorded clip if you want post-workout review instead of live analysis.
+For each frame, wrap the pixel buffer in a VNImageRequestHandler and run the body pose request (2D or 3D) on it.
+Pull the joints out of the resulting VNHumanBodyPoseObservation (or VNHumanBodyPose3DObservation), each with a name like .leftKnee, .rightHip, a position, and a confidence value.
+Do the actual form analysis yourself: compute angles between three joints (hip, knee, ankle for squat depth; shoulder, elbow, wrist for a curl), track how those angles change over time to detect reps, and flag deviations (knees caving in, back rounding, etc.) against thresholds you define or a model you train.
+Optionally draw the skeleton on screen by mapping the joint coordinates onto your camera preview layer, so the user sees live feedback.
+
+For exercise recognition (automatically identifying which lift someone's doing) rather than just angle math, Create ML has a built in Action Classification template that trains directly on body pose sequences, so you can feed it labeled clips of squats, deadlifts, etc. and get a classifier without building your own model architecture.

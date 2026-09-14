@@ -1,0 +1,2 @@
+- [Expo typed routes](expo-typed-routes.md) — newly added routes may not enter generated route types until Metro regenerates them.
+- [Expo camera lifecycle](expo-camera-lifecycle.md) — refresh permissions after Settings and unmount camera previews whenever the route or app becomes inactive.
